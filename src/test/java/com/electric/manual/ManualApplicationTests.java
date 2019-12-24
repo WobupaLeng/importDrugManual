@@ -1,4 +1,4 @@
-package com.electric.instructions;
+package com.electric.manual;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
