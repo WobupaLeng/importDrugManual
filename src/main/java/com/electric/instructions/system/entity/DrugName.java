@@ -58,7 +58,7 @@ public class DrugName {
 
     @Override
     public String toString() {
-        return "com.electric.instructions.system.entity.DrugName{" +
+        return "DrugName{" +
                 "name='" + name + '\'' +
                 ", commonName='" + commonName + '\'' +
                 ", usedName='" + usedName + '\'' +

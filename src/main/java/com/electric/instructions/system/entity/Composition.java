@@ -49,7 +49,7 @@ public class Composition {
 
     @Override
     public String toString() {
-        return "com.electric.instructions.system.entity.Composition{" +
+        return "Composition{" +
                 "chemicalName='" + chemicalName + '\'' +
                 ", ingredient='" + ingredient + '\'' +
                 ", molecularFormula='" + molecularFormula + '\'' +

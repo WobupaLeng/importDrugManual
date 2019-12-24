@@ -247,7 +247,7 @@ public class Drug {
 
     @Override
     public String toString() {
-        return "com.electric.instructions.system.entity.Drug{" +
+        return "Drug{" +
                 "drugName=" + drugName +
                 ", source='" + source + '\'' +
                 ", imagesUrl='" + imagesUrl + '\'' +
