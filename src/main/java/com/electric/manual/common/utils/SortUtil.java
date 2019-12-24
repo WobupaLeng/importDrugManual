@@ -1,9 +1,9 @@
-package com.electric.instructions.common.utils;
+package com.electric.manual.common.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.electric.instructions.common.domain.QueryRequest;
-import com.electric.instructions.common.domain.InstructionsConstant;
+import com.electric.manual.common.domain.QueryRequest;
+import com.electric.manual.common.domain.ManualConstant;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -25,20 +25,20 @@ public class SortUtil {
         page.setSize(request.getPageSize());
         String sortField = request.getSortField();
         if (camelToUnderscore) {
-            sortField = InstructionsUtil.camelToUnderscore(sortField);
-            defaultSort = InstructionsUtil.camelToUnderscore(defaultSort);
+            sortField = ManualUtil.camelToUnderscore(sortField);
+            defaultSort = ManualUtil.camelToUnderscore(defaultSort);
         }
         if (StringUtils.isNotBlank(request.getSortField())
                 && StringUtils.isNotBlank(request.getSortOrder())
                 && !StringUtils.equalsIgnoreCase(request.getSortField(), "undefined")
                 && !StringUtils.equalsIgnoreCase(request.getSortOrder(), "undefined")) {
-            if (StringUtils.equals(request.getSortOrder(), InstructionsConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getSortOrder(), ManualConstant.ORDER_DESC))
                 page.setDesc(sortField);
             else
                 page.setAsc(sortField);
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, InstructionsConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, ManualConstant.ORDER_DESC))
                     page.setDesc(defaultSort);
                 else
                     page.setAsc(defaultSort);
@@ -79,20 +79,20 @@ public class SortUtil {
     public static void handleWrapperSort(QueryRequest request, QueryWrapper wrapper, String defaultSort, String defaultOrder, boolean camelToUnderscore) {
         String sortField = request.getSortField();
         if (camelToUnderscore) {
-            sortField = InstructionsUtil.camelToUnderscore(sortField);
-            defaultSort = InstructionsUtil.camelToUnderscore(defaultSort);
+            sortField = ManualUtil.camelToUnderscore(sortField);
+            defaultSort = ManualUtil.camelToUnderscore(defaultSort);
         }
         if (StringUtils.isNotBlank(request.getSortField())
                 && StringUtils.isNotBlank(request.getSortOrder())
                 && !StringUtils.equalsIgnoreCase(request.getSortField(), "undefined")
                 && !StringUtils.equalsIgnoreCase(request.getSortOrder(), "undefined")) {
-            if (StringUtils.equals(request.getSortOrder(), InstructionsConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getSortOrder(), ManualConstant.ORDER_DESC))
                 wrapper.orderByDesc(sortField);
             else
                 wrapper.orderByAsc(sortField);
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, InstructionsConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, ManualConstant.ORDER_DESC))
                     wrapper.orderByDesc(defaultSort);
                 else
                     wrapper.orderByAsc(defaultSort);

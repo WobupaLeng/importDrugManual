@@ -1,4 +1,4 @@
-package com.electric.instructions.common.utils;
+package com.electric.manual.common.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

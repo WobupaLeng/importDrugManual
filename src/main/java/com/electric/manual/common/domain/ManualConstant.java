@@ -1,6 +1,6 @@
-package com.electric.instructions.common.domain;
+package com.electric.manual.common.domain;
 
-public class InstructionsConstant {
+public class ManualConstant {
 
     // 排序规则： descend 降序
     public static final String ORDER_DESC = "descend";
@@ -8,7 +8,7 @@ public class InstructionsConstant {
     public static final String ORDER_ASC = "ascend";
 
     // token缓存前缀
-    public static final String TOKEN_CACHE_PREFIX = "instructions.cache.token.";
+    public static final String TOKEN_CACHE_PREFIX = "manual.cache.token.";
 
 
     // 网络资源 Url

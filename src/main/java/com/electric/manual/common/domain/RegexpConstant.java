@@ -1,4 +1,4 @@
-package com.electric.instructions.common.domain;
+package com.electric.manual.common.domain;
 
 /**
  * 正则常量

@@ -1,7 +1,7 @@
-package com.electric.instructions.common.config;
+package com.electric.manual.common.config;
 
+import com.electric.manual.common.utils.DateUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
-import com.electric.instructions.common.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;

@@ -1,13 +1,13 @@
-package com.electric.instructions;
+package com.electric.manual;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InstructionsApplication {
+public class ManualApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(InstructionsApplication.class, args);
+        SpringApplication.run(ManualApplication.class, args);
     }
 
 }

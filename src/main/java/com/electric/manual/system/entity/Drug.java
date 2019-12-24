@@ -1,4 +1,4 @@
-package com.electric.instructions.system.entity;
+package com.electric.manual.system.entity;
 
 public class Drug {
     private DrugName drugName;		    //药品名称

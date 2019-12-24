@@ -1,4 +1,4 @@
-package com.electric.instructions.common.utils;
+package com.electric.manual.common.utils;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

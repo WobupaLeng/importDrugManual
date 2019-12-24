@@ -1,4 +1,4 @@
-package com.electric.instructions.system.entity;
+package com.electric.manual.system.entity;
 
 public class Composition {
     private String chemicalName;        //主要成分及其化学名称

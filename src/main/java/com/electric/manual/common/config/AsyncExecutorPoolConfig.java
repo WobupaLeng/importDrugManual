@@ -1,4 +1,4 @@
-package com.electric.instructions.common.config;
+package com.electric.manual.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
