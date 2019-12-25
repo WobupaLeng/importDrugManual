@@ -1,4 +1,4 @@
-package com.electric.manual.pasring.jsoup;
+package com.electric.manual.pasring;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,8 +10,8 @@ import java.io.File;
 
 import static com.electric.manual.common.utils.FileUtil.readFile;
 
-public class Convert {
-    public void convert(String dirPath, String newPath) {
+class jsoupConvert {
+    static void convert(String dirPath, String newPath) {
         File file = new File(dirPath);
         File[] fs = file.listFiles();
         assert fs != null;

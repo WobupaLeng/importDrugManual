@@ -1,4 +1,4 @@
-package com.electric.manual.pasring.general;
+package com.electric.manual.pasring;
 
 import java.util.HashMap;
 import java.util.Map;

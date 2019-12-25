@@ -1,11 +1,11 @@
-package com.electric.manual.pasring.general;
+package com.electric.manual.pasring;
 
 import java.io.File;
 
 import static com.electric.manual.common.utils.FileUtil.*;
 
-public class Convert {
-    public static void convert(String dirPath, String newPath){
+class generalConvert {
+    static void convert(String dirPath, String newPath){
         File file = new File(dirPath);
         File[] fs = file.listFiles();
         assert fs != null;
@@ -18,7 +18,7 @@ public class Convert {
             String fileInfo = newPath + "\\" + newFile;
             String str = readFile(f);
 
-            String result = html2text(str);
+            String result = htmlToText(str);
 
             writeFile(fileInfo, result);
             if (index % 50 == 0) {
@@ -30,7 +30,7 @@ public class Convert {
         System.out.println("finish");
     }
 
-    public static String html2text(String html) {
+    private static String htmlToText(String html) {
         StringBuilder sb = new StringBuilder(html.length());
         char[] data = html.toCharArray();
         int start = 0;

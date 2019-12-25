@@ -8,7 +8,7 @@ create table drug_manual
     injections               text         default null comment '注射剂辅料',
     nature                   text         default null comment '性状',
     indication               text         default null comment '适应症',
-    pharmacology             text         default null comment '药理药毒',
+    pharmacology             text         default null comment '药理毒理',
     pharmacokinetics         text         default null comment '药代动力学',
     dosage                   text         default null comment '用法用量',
     specification            text         default null comment '规格',
@@ -26,6 +26,5 @@ create table drug_manual
     expiration_date          varchar(100) default null comment '有效期',
     implementation_standards varchar(255) default null comment '执行标准',
     ratify_number            varchar(255) default null comment '批准文号',
-    company                  varchar(255) default null comment '生产企业',
-    address                  varchar(255) default null comment '生产地址'
+    company                  varchar(255) default null comment '生产企业'
 ) comment '药品说明书' charset = utf8mb4;
