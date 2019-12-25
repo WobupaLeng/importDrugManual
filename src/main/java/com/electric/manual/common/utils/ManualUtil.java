@@ -9,15 +9,6 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class ManualUtil {
-
-
-
-    /**
-     * token 加密
-     *
-     * @param token token
-     * @return 加密后的 token
-     */
     public static String encryptToken(String token) {
         try {
             EncryptUtil encryptUtil = new EncryptUtil(ManualConstant.TOKEN_CACHE_PREFIX);
@@ -28,12 +19,6 @@ public class ManualUtil {
         }
     }
 
-    /**
-     * token 解密
-     *
-     * @param encryptToken 加密后的 token
-     * @return 解密后的 token
-     */
     public static String decryptToken(String encryptToken) {
         try {
             EncryptUtil encryptUtil = new EncryptUtil(ManualConstant.TOKEN_CACHE_PREFIX);
@@ -65,5 +50,4 @@ public class ManualUtil {
         });
         return StringUtils.lowerCase(result.toString());
     }
-
 }
