@@ -146,10 +146,5 @@ public class DrugManual implements Serializable {
     /**
      * 生产企业
      */
-    private String company;
-
-    /**
-     * 生产地址
-     */
-    private String address;
+    private Company company;
 }
