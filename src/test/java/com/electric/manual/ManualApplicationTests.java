@@ -1,6 +1,6 @@
 package com.electric.manual;
 
-import com.electric.manual.pasring.StartProcess;
+import com.electric.manual.pasring.ConvertToEntity;
 import com.electric.manual.system.entity.DrugManual;
 import com.electric.manual.system.service.IDrugManualService;
 import org.junit.jupiter.api.Test;
@@ -16,14 +16,16 @@ class ManualApplicationTests {
     @Test
     void contextLoads() {
         System.out.println("start");
+        int batchCount = 1000;
+        String dirPath = "F:\\drugManuals_txt";
+        //String dirPath = "F:\\test";
 
-        StartProcess process = new StartProcess();
-        List<DrugManual> drugManuals = process.startProcess("F:\\drugManuals_txt", 100);
+        ConvertToEntity convert = new ConvertToEntity();
+        List<DrugManual> drugManuals = convert.startProcess(dirPath);
 
         System.out.println("获得说明书个数：" + drugManuals.size());
         System.out.println("开始保存到数据库...");
-        drugManualService.saveBatch(drugManuals, 100);
+        drugManualService.saveBatch(drugManuals, batchCount);
         System.out.println("finish");
     }
-
 }
