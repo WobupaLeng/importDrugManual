@@ -20,7 +20,7 @@ public enum DrugManualAttr implements SingleIntEnum {
 
     //composition 成分
     CHEMICAL_NAME(9, "主要成分及其化学名称"),
-    INGREDIENT(10, "成分"),
+    INGREDIENT(10, "成份"),
     MOLECULAR_FORMULA(11, "分子式"),
     MOLECULAR_WEIGHT(12, "分子量"),
     CHEMICAL_STRUCTURE(13, "化学结构式"),

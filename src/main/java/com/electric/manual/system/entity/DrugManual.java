@@ -21,7 +21,7 @@ public class DrugManual implements Serializable {
     /**
      * 药品名称
      */
-    private DrugName drugName;
+    private String drugName;
 
     /**
      * 来源
@@ -36,7 +36,7 @@ public class DrugManual implements Serializable {
     /**
      * 成分
      */
-    private Composition composition;
+    private String composition;
 
     /**
      * 注射剂辅料
@@ -146,5 +146,5 @@ public class DrugManual implements Serializable {
     /**
      * 生产企业
      */
-    private Company company;
+    private String company;
 }

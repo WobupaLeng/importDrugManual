@@ -23,8 +23,8 @@ create table drug_manual
     drug_overdose            text         default null comment '药物过量',
     store                    text         default null comment '贮藏',
     pack                     text         default null comment '包装',
-    expiration_date          varchar(100) default null comment '有效期',
-    implementation_standards varchar(255) default null comment '执行标准',
-    ratify_number            varchar(255) default null comment '批准文号',
-    company                  varchar(255) default null comment '生产企业'
+    expiration_date          text default null comment '有效期',
+    implementation_standards text default null comment '执行标准',
+    ratify_number            text         default null comment '批准文号',
+    company                  text         default null comment '生产企业'
 ) comment '药品说明书' charset = utf8mb4;

@@ -1,5 +1,6 @@
 package com.electric.manual.pasring;
 
+import com.alibaba.fastjson.JSON;
 import com.electric.manual.common.constant.DrugManualAttr;
 import com.electric.manual.common.constant.LikeIndicationAttr;
 import com.electric.manual.common.constant.LikePharmacologyAttr;
@@ -8,9 +9,7 @@ import com.electric.manual.system.entity.Company;
 import com.electric.manual.system.entity.Composition;
 import com.electric.manual.system.entity.DrugManual;
 import com.electric.manual.system.entity.DrugName;
-import com.electric.manual.system.service.IDrugManualService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ConvertToEntity {
-    @Autowired
-    private IDrugManualService drugManualService;
-
-    public void textMark(String context, String drugName) {
+    public List<Map.Entry<DrugManualAttr, Integer>> textMark(String context) {
         DrugManualAttr[] arr = DrugManualAttr.values();
         Map<DrugManualAttr, Integer> contextMark = new HashMap<>(arr.length);
         for (DrugManualAttr attr : arr) {
@@ -33,9 +29,19 @@ public class ConvertToEntity {
                 index = LikePharmacologyAttr.getIndex(context);
             } else if (attr == DrugManualAttr.TABOO) {
                 index = LikeTabooAttr.getIndex(context);
-            } else {
+            } else if (attr == DrugManualAttr.PACK) { //包装图 和包装 属性的特殊处理
+                int urlIndex = context.indexOf(DrugManualAttr.IMAGES_URL.getName());
+                int packIndex = context.lastIndexOf(DrugManualAttr.PACK.getName());
+                if (packIndex <= urlIndex) {
+                    index = -1;
+                } else {
+                    index = packIndex;
+                }
+            }
+            else {
                 index = context.indexOf(attr.getName());
             }
+
             if (index < 0)
                 continue;
             contextMark.put(attr, index);
@@ -43,15 +49,16 @@ public class ConvertToEntity {
         //对contextMark value 排序
         List<Map.Entry<DrugManualAttr, Integer>> list = new ArrayList<>(contextMark.entrySet());
         list.sort(Map.Entry.comparingByValue());
-        parseToEntity(context, list, drugName);
+        return list;
+        //parseToEntity(context, list, drugName);
     }
 
-    private void parseToEntity(String context, List<Map.Entry<DrugManualAttr, Integer>> list, String drugName) {
+    public DrugManual parseToEntity(String context, List<Map.Entry<DrugManualAttr, Integer>> list, String drugName) {
         DrugManual drugManual = new DrugManual();
         DrugName drug = new DrugName();
         Company company = new Company();
         Composition composition = new Composition();
-        drug.setChName(drugName);
+        drug.setName(drugName);
 
         int listSize = list.size();
         String attrStr;
@@ -82,10 +89,9 @@ public class ConvertToEntity {
             DrugManualAttr.setEntity(current.getKey(), attrStr, drugManual, drug, composition, company);
         }
 
-        drugManual.setDrugName(drug);
-        drugManual.setComposition(composition);
-        drugManual.setCompany(company);
-
-        drugManualService.importDrugManual(drugManual);
+        drugManual.setDrugName(JSON.toJSONString(drug));
+        drugManual.setComposition(JSON.toJSONString(composition));
+        drugManual.setCompany(JSON.toJSONString(company));
+        return drugManual;
     }
 }
