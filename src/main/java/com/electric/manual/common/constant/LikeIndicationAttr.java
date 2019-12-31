@@ -1,7 +1,5 @@
 package com.electric.manual.common.constant;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public enum LikeIndicationAttr implements SingleIntEnum {
     ATTR1(16, "适应症")
     , ATTR2(16, "功能主治")
@@ -14,17 +12,6 @@ public enum LikeIndicationAttr implements SingleIntEnum {
     LikeIndicationAttr(int value, String name) {
         this.value = value;
         this.name = name;
-    }
-
-    public static int getIndex(String str) {
-        AtomicInteger i = new AtomicInteger(-1);
-        AttrInitConstant.getIndicationAttrs().parallelStream().forEach(s -> {
-            int index = str.indexOf(s.getName());
-            if (index > i.get()) {
-                i.set(index);
-            }
-        });
-        return i.get();
     }
 
     @Override
