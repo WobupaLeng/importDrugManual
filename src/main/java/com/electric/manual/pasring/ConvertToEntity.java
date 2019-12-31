@@ -1,8 +1,9 @@
 package com.electric.manual.pasring;
 
 import com.alibaba.fastjson.JSON;
-import com.electric.manual.common.constant.*;
+import com.electric.manual.common.constant.DrugManualAttr;
 import com.electric.manual.common.utils.FileUtil;
+import com.electric.manual.pasring.strategy.Context;
 import com.electric.manual.system.entity.Company;
 import com.electric.manual.system.entity.Composition;
 import com.electric.manual.system.entity.DrugManual;
@@ -14,8 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.electric.manual.common.constant.AttrInitConstant.*;
 
 public class ConvertToEntity {
     public List<DrugManual> startProcess(String dirPath) {
@@ -42,39 +41,13 @@ public class ConvertToEntity {
         return drugManualList;
     }
 
-    public List<Map.Entry<DrugManualAttr, Integer>> textMark(String context) {
+    public List<Map.Entry<DrugManualAttr, Integer>> textMark(String text) {
         DrugManualAttr[] arr = DrugManualAttr.values();
         Map<DrugManualAttr, Integer> contextMark = new HashMap<>(arr.length);
+        Context context = new Context();
         for (DrugManualAttr attr : arr) {
             assert attr.getName() != null;
-            int index;
-
-            if (getCommonNameAttrs().stream().anyMatch(s -> s.getValue() == attr.getValue())) {
-                index = LikeCommonNameAttr.getIndex(context);
-            } else if (getChemicalNameAttrs().stream().anyMatch(s -> s.getValue() == attr.getValue())) {
-                index = LikeChemicalNameAttr.getIndex(context);
-            } else if (getIngredientAttrs().stream().anyMatch(s -> s.getValue() == attr.getValue())) {
-                index = LikeIngredientAttr.getIndex(context);
-            } else if (getIndicationAttrs().stream().anyMatch(s -> s.getValue() == attr.getValue())) {
-                index = LikeIndicationAttr.getIndex(context);
-            } else if (getPharmacologyAttrs().stream().anyMatch(s -> s.getValue() == attr.getValue())) {
-                index = LikePharmacologyAttr.getIndex(context);
-            } else if (getTabooAttrs().stream().anyMatch(s -> s.getValue() == attr.getValue())) {
-                index = LikeTabooAttr.getIndex(context);
-            } else if (attr == DrugManualAttr.PACK) { //包装图 和包装 属性的特殊处理
-                int urlIndex = context.indexOf(DrugManualAttr.IMAGES_URL.getName());
-                int packIndex = context.lastIndexOf(DrugManualAttr.PACK.getName());
-                if (packIndex <= urlIndex) {
-                    index = -1;
-                } else {
-                    index = packIndex;
-                }
-            } else if (getCompanyNameAttrs().stream().anyMatch(s -> s.getValue() == attr.getValue())) {
-                index = LikeCompanyNameAttr.getIndex(context);
-            } else {
-                index = context.indexOf(attr.getName());
-            }
-
+            int index = context.getIndex(text, attr.getValue());
             if (index < 0)
                 continue;
             contextMark.put(attr, index);
