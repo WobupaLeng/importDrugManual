@@ -21,17 +21,25 @@ public class ConvertToEntity {
         File file = new File(dirPath);
         File[] fs = file.listFiles();
         assert fs != null;
-        StringBuilder echo = new StringBuilder("process ===> start");
+        StringBuilder echo = new StringBuilder("process...\r\n");
 
         int index = 0;
         int total = fs.length;
+
+        DrugManualAttr[] arr = DrugManualAttr.values();
+        Context context = new Context();
         List<DrugManual> drugManualList = new ArrayList<>(total);
+        Map<DrugManualAttr, Integer> textMark = new HashMap<>(arr.length);
+        List<Map.Entry<DrugManualAttr, Integer>> list;
+
         for (File f : fs) {
             index++;
-            String context = FileUtil.readFile(f);
-            context = context.replace("如有问题可与生产企业联系", "");
-            List<Map.Entry<DrugManualAttr, Integer>> list = textMark(context);
-            drugManualList.add(parseToEntity(context, list, f.getName().replaceAll(".txt", "")));
+            String text = FileUtil.readFile(f);
+            text = text.replace("如有问题可与生产企业联系", "");
+            list = textMark(text, arr, context, textMark);
+            drugManualList.add(parseToEntity(text, list, f.getName().replaceAll(".txt", "")));
+            list.clear();
+            textMark.clear();
 
             if (index % 200 == 0) {
                 System.out.println(echo.append((index * 100) / total).append("%"));
@@ -41,39 +49,35 @@ public class ConvertToEntity {
         return drugManualList;
     }
 
-    public List<Map.Entry<DrugManualAttr, Integer>> textMark(String text) {
-        DrugManualAttr[] arr = DrugManualAttr.values();
-        Map<DrugManualAttr, Integer> contextMark = new HashMap<>(arr.length);
-        Context context = new Context();
+    public List<Map.Entry<DrugManualAttr, Integer>> textMark(String text, DrugManualAttr[] arr, Context context, Map<DrugManualAttr, Integer> textMark) {
         for (DrugManualAttr attr : arr) {
             assert attr.getName() != null;
             int index = context.getIndex(text, attr.getValue());
             if (index < 0)
                 continue;
-            contextMark.put(attr, index);
+            textMark.put(attr, index);
         }
-        //对contextMark value 排序
-        List<Map.Entry<DrugManualAttr, Integer>> list = new ArrayList<>(contextMark.entrySet());
+        //textMark转list 并按照value排序
+        List<Map.Entry<DrugManualAttr, Integer>> list = new ArrayList<>(textMark.entrySet());
         list.sort(Map.Entry.comparingByValue());
         return list;
     }
 
-    public DrugManual parseToEntity(String context, List<Map.Entry<DrugManualAttr, Integer>> list, String drugName) {
+    public DrugManual parseToEntity(String text, List<Map.Entry<DrugManualAttr, Integer>> list, String drugName) {
         DrugManual drugManual = new DrugManual();
         DrugName drug = new DrugName();
         Company company = new Company();
         Composition composition = new Composition();
         drug.setName(drugName);
-
         int listSize = list.size();
         String attrStr;
         //相邻的属性下标之间为文本内容 位置靠前的下标为对应属性
         for (int i = 0; i < listSize; i++) {
             Map.Entry<DrugManualAttr, Integer> current = list.get(i);
             if (i < listSize - 1) {
-                attrStr = context.substring(current.getValue(), list.get(i + 1).getValue());
+                attrStr = text.substring(current.getValue(), list.get(i + 1).getValue());
             } else {
-                attrStr = context.substring(current.getValue());
+                attrStr = text.substring(current.getValue());
             }
 
             attrStr = attrStr

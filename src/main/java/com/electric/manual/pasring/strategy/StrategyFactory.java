@@ -5,6 +5,7 @@ import com.electric.manual.pasring.strategy.execute.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StrategyFactory {
@@ -14,8 +15,8 @@ public class StrategyFactory {
     }
 
     private static Map<Integer, AttrStrategy> strategyMap = new HashMap<>();
-    //有别名的属性对应的 值
-    private static int[] aliasAttr = new int[]{2, 9, 10, 16, 17, 23, 31,35};
+    //非通用属性，需要特殊处理的属性值
+    private static List<Integer> aliasAttr = Arrays.asList(2, 9, 10, 16, 17, 23, 31,35);
 
     static {
         strategyMap.put(0, new OrdinaryAttrStrategy());
@@ -30,9 +31,7 @@ public class StrategyFactory {
     }
 
     public AttrStrategy creator(int type) {
-        if (Arrays.stream(aliasAttr).noneMatch(s -> s == type))
-            return strategyMap.get(0);
-        return strategyMap.get(type);
+        return aliasAttr.stream().noneMatch(s -> s == type) ? strategyMap.get(0) : strategyMap.get(type);
     }
 
     public static StrategyFactory getInstance() {

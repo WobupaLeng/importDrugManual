@@ -15,7 +15,8 @@ class ManualApplicationTests {
     private IDrugManualService drugManualService;
     @Test
     void contextLoads() {
-        System.out.println("start");
+        long currentTime = System.currentTimeMillis();
+        System.out.println("start...");
         int batchCount = 1000;
         String dirPath = "F:\\drugManuals_txt";
         //String dirPath = "F:\\test";
@@ -26,6 +27,6 @@ class ManualApplicationTests {
         System.out.println("获得说明书个数：" + drugManuals.size());
         System.out.println("开始保存到数据库...");
         drugManualService.saveBatch(drugManuals, batchCount);
-        System.out.println("finish");
+        System.out.println("finish-耗时:" + (System.currentTimeMillis() - currentTime) + "ms");
     }
 }
